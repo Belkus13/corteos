@@ -259,8 +259,6 @@ new Vue({
          this.sidebarActive = !this.sidebarActive;
       },
       loadFlightsData() {
-         // В реальном приложении здесь был бы запрос к API
-         // Для демонстрации используем данные из переменной
          this.flights = flightsData.map((flight, index) => ({
             ...flight,
             id: index + 1
@@ -303,4 +301,5 @@ new Vue({
       
        
    }
+
 });
