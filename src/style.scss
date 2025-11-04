@@ -1,0 +1,919 @@
+$button-height: 4rem;
+$padding-1: 1.5rem;
+$blue: #0F90E9;
+$blue-black: #293553;
+$blue-gray: #54648C;
+$gray: #F5F5F5;
+$gray-medium: #8B8B93;
+$gray-dark: #3D3D4B;
+$lilac: #DA66DD;
+$lilac-light: #FEE2FF;
+$rounded-small: 0.25rem;
+$rounded-medium: 0.5rem;
+$rounded-large: 1.75rem;
+$font-regular: 'Proxima Nova Regular', sans-serif;
+$font-bold: 'Proxima Nova Bold', sans-serif;
+$easing: 0.3s ease 0s;
+$easing-slow: 0.5s ease-in-out 0s;
+$easing-x-slow: 0.75s ease-in-out 0s;
+$cubic: .5s cubic-bezier(0,0,0.5,1);
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+@mixin media-min($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-max($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@font-face {
+  font-family: 'Proxima Nova Regular';
+  src: url('../fonts/proxima_nova_regular.woff2') format('woff2'),
+      url('../fonts/proxima_nova_regular.woff') format('woff'),
+      url('../fonts/proxima_nova_regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova Bold';
+  src: url('../fonts/proxima_nova_bold.woff2') format('woff2'),
+      url('../fonts/proxima_nova_bold.woff') format('woff'),
+      url('../fonts/proxima_nova_bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('../fonts/icomoon.eot?mcfruw');
+  src: url('../fonts/icomoon.eot?mcfruw#iefix') format('embedded-opentype'),
+      url('../fonts/icomoon.ttf?mcfruw') format('truetype'),
+      url('../fonts/icomoon.woff?mcfruw') format('woff'),
+      url('../fonts/icomoon.svg?mcfruw#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-focus-ring-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: $blue;
+}
+
+html, body {
+  height: 100%;
+  scrollbar-gutter: stable;
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 14px;
+  
+  @include media-min($breakpoint-sm) {
+    font-size: 16px;
+  }
+}
+
+body {
+  font-family: $font-regular;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: $blue-black;
+  background: $gray;
+}
+
+img {
+  border: 0; 
+  max-width: 100%; 
+  height: auto;
+}
+
+.font {
+  &-weight {
+    &-regular { 
+      font-family: $font-regular; 
+    }
+    &-bold {
+      font-family: $font-bold;
+      font-weight: normal;
+    }
+  }
+  
+  &-small { 
+    font-size: 0.875rem; 
+  }
+  &-light { 
+    color: $gray-medium; 
+  }
+}
+
+.text-nowrap { 
+  white-space: nowrap; 
+}
+
+.bg {
+  &-gray { 
+    background: $gray; 
+  }
+  &-blue-black {
+    background: $blue-black;
+    color: #FFF;
+  }
+  &-blue-gray {
+    background: $blue-gray;
+    color: #FFF;
+  }
+}
+
+.container {
+  max-width: 1360px;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+  
+  @include media-min($breakpoint-xl) {
+    padding: 108px 40px 40px;
+  }
+}
+
+[class^="icon-"], 
+[class*=" icon-"] {
+  @include flex-center;
+  justify-content: start;
+  column-gap: 0.5rem;
+  
+  &:before {
+    font-family: 'icomoon';
+    font-size: 1rem;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  }
+  
+  &.icon-right {
+    &:before { 
+      order: 2; 
+    }
+    &:before ~ * { 
+      order: 1; 
+    }
+  }
+}
+
+.icon-search:before { 
+  content: "\e900"; 
+}
+
+.icon-arrow:before { 
+  content: "\e901"; 
+}
+
+.icon-baggage:before { 
+  content: "\e902"; 
+}
+
+.icon-calendar:before { 
+  content: "\e903"; 
+}
+
+.icon-carryon:before { 
+  content: "\e904"; 
+}
+
+.icon-check:before { 
+  content: "\e905";
+  font-size: 0.44rem;
+}
+
+.icon-delete:before { 
+  content: "\e906"; 
+}
+
+.icon-down:before { 
+  content: "\e907"; 
+  transition: all $easing;
+}
+
+.icon-down.rotated:before {
+  transform: rotateX(180deg);
+}
+
+.icon-filter:before { 
+  content: "\e908";
+  font-size: 1.5rem;
+}
+
+.icon-fly:before { 
+  content: "\e909";
+  font-size: 1.465rem;
+}
+
+.icon-plus:before { 
+  content: "\e90a"; 
+}
+
+.icon-return:before { 
+  content: "\e90b"; 
+}
+
+input[type="submit"], 
+button {
+  -webkit-appearance: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.button {
+  @include flex-center;
+  display: inline-flex;
+  height: $button-height;
+  padding: 0 $padding-1;
+  border-radius: $rounded-small;
+  font-family: $font-bold;
+  font-size: 1rem;
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $easing;
+
+  &--primary {
+    background-color: $blue;
+    
+    &:hover {
+      background-color: #36A2EC;
+    }
+  }
+  
+  &--dark {
+    background: $blue-black;
+    
+    &:hover {
+      background: #3A4767;
+    }
+  }
+  
+  &--light {
+    background: $blue-gray;
+    
+    &:hover {
+      background: #6475A0;
+    }
+  }
+  
+  &--narrow {
+    height: 2.125rem;
+  }
+  
+  &--circle {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border-radius: 100%;
+    column-gap: 0;
+    color: $blue-black;
+  }
+  
+  &--select {
+    @include flex-between;
+    color: $gray-dark;
+    font-family: $font-regular;
+    background: #FFF;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  width: 100%;
+  height: 30px;
+  padding: 0 $padding-1;
+  border: 1px solid rgba($blue-black, 0.25);
+  border-radius: $rounded-small;
+  font-size: 1rem;
+  transition: all $easing;
+  
+  &:focus {
+    outline: none;
+    border-color: rgba($blue-black, 0.85);
+  }
+}
+
+.checkbox {
+  @include flex-center;
+  gap: 0.563rem;
+  margin-bottom: 0;
+  cursor: pointer;
+  
+  & + & {
+    margin-top: 0.5rem;
+  }
+  
+  &:has(.checkbox__input:disabled) {
+    cursor: default;
+  }
+  
+  &__input {
+    opacity: 0;
+    position: absolute;
+  }
+  
+  &__decor {
+    @include flex-center;
+    flex: 0 0 auto;
+    width: 1.375rem;
+    height: 1.375rem;
+    position: relative; 
+    z-index: 2;
+    font-size: 0.44rem;
+    color: #FFF;
+    border: 1px solid $gray-medium;
+    border-radius: $rounded-small;
+    transition: all $easing;
+    
+    &:before {
+      display: block;
+      opacity: 0;
+      transform: scale(0);
+      transition: all $easing;
+    }
+  }
+  
+  &__input:checked ~ &__decor {
+    background: $blue;
+    border-color: $blue;
+    
+    &:before {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  &__text {
+    flex: 1 0 auto;
+  }
+}
+
+.collapse-dropdown {
+  position: relative;
+  
+  &__in {
+    padding: 1rem 0;
+    margin: 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, .1);
+    border: 0;
+    border-radius: $rounded-small;
+  }
+  
+  &__item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem $padding-1;
+    clear: both;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #DFEFFA;
+    }
+  }
+}
+
+.search {
+  position: relative;
+  
+  &__input {
+    padding: 0 2rem 0 0.75rem;
+  }
+  
+  &__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0.75rem;
+    font-size: 0.75rem;
+    color: $gray-dark;
+  }
+}
+
+.title {
+  font-family: $font-bold;
+  font-size: 1.25rem;
+  
+  &--medium { 
+    font-size: 1.05rem; 
+  }
+  &--small { 
+    font-size: 0.95rem; 
+  }
+  
+  @include media-min($breakpoint-sm) {
+    font-size: 1.75rem;
+    
+    &--medium { 
+      font-size: 1.25rem; 
+    }
+    &--small { 
+      font-size: 1rem; 
+    }
+  }
+}
+
+.segment {
+  @include flex-center;
+  column-gap: 0.5rem;
+}
+
+.badge {
+  @include flex-center;
+  height: 2rem;
+  padding: 0 0.88rem;
+  border-radius: $rounded-medium;
+  font-weight: normal;
+  font-size: 0.85rem;
+  
+  &--primary { 
+    background: $gray; 
+  }
+  &--highlight {
+    background: $lilac-light;
+    color: $lilac;
+  }
+  
+  @include media-min($breakpoint-sm) {
+    font-size: 1rem;
+  }
+}
+
+.header {
+  column-gap: 1rem;
+  margin-bottom: 3rem;
+  
+  @include media-min($breakpoint-sm) {
+    .title {
+      margin-right: 0.5rem;
+      position: relative;
+      top: -0.2rem;
+      column-gap: 1.75rem;
+    }
+  }
+}
+
+.panel {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  
+  &__item {
+    &:nth-child(1) {
+      flex: 1 1 auto;
+    }
+  }
+
+  &__item--checkbox {
+    height: $button-height;
+  }
+  
+  @include media-min($breakpoint-sm) {
+    gap: 2px;
+    height: $button-height;
+    
+    .collapse-dropdown__in {
+      margin-top: 2px;
+    }
+  }
+  
+  @include media-min($breakpoint-xl) {
+    flex-wrap: nowrap;
+    
+    &__item--checkbox {
+      width: 10rem;
+    }
+    
+    &__item--button {
+      width: 11.938rem;
+    }
+  }
+  
+  @include media-max(575px) {
+    &__item--dropdown { 
+      width: 100%; 
+    }
+    &__item--checkbox,
+    &__item--button {
+      flex: 0 0 calc(50% - 0.3rem);
+    }
+  }
+}
+
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background: rgba($blue-black, 0.6);
+  
+  &.is-active {
+    visibility: visible;
+    opacity: 0.6;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 310px;
+  height: 100vh;
+  z-index: 100;
+  overflow-y: auto;
+  background: $blue-black;
+  color: #FFF;
+  padding: $padding-1;
+  
+  &__header {
+    margin-bottom: 3rem;
+    
+    .button--circle {
+      background: rgba(255,255,255,0.1);
+      color: inherit;
+      
+      &:hover {
+        background: rgba(255,255,255,0.3);
+      }
+    }
+  }
+  
+  .filter {
+    
+    &__section {
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+    
+    .search {
+      margin-bottom: 0.25rem;
+      padding-left: 0.75rem;
+    }
+    
+    .scrollbar {
+      height: 7.5rem;
+      overflow: auto;
+      
+      &::-webkit-scrollbar {
+        width: 4px;
+        
+        &-track {
+          width: 4px;
+          background: #DDD;
+          border-radius: 4px;
+        }
+        
+        &-thumb {
+          width: 4px;
+          background: $blue-black;
+          border-radius: 4px;
+        }
+      }
+    }
+    
+    .collapse-dropdown__in {
+      padding: 0.75rem;
+      padding-left: 0;
+      color: $blue-black;
+    }
+    
+    .collapse-dropdown__item {
+      display: flex;
+      height: 2.5rem;
+      padding: 0 0.75rem;
+      
+      .checkbox {
+        width: 100%;
+        
+        .checkbox__input:checked ~ .checkbox__text span:first-child {
+          font-family: $font-bold;
+        }
+      }
+    }
+  }
+}
+
+.airline {
+  column-gap: 0.5rem;
+  
+  &__logo {
+    @include flex-center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    
+    img {
+      border-radius: 100%;
+    }
+  }
+  
+  @include media-min($breakpoint-sm) {
+    column-gap: 1rem;
+    margin-right: 1rem;
+    
+    &__logo {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}
+
+.date {
+  white-space: nowrap;
+}
+
+.timeline {
+  row-gap: 0.5rem;
+}
+
+.route {
+  column-gap: 0.75rem;
+  line-height: 1;
+  
+  &__duration {
+    width: max-content;
+    flex: 1 0 auto;
+    padding: 0 0.5rem 0.55rem;
+    text-align: center;
+    position: relative;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0.2rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-image: linear-gradient(to right, $blue-black 33%, #fff 0%);
+      background-position: bottom;
+      background-size: 4px 1px;
+      background-repeat: repeat-x;
+    }
+    
+    @include media-min($breakpoint-xl) {
+      width: 213px;
+    }
+  }
+}
+
+.order {
+  padding: $padding-1;
+  margin-bottom: 1.5rem;
+  border-radius: $rounded-large;
+  background: #FFF;
+  
+  .title {
+    line-height: 1;
+  }
+  
+  &__col {
+    flex: 1 1 auto;
+  }
+  
+  &__header {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  &__body {
+    font-size: 0.875rem;
+    margin: 0;
+    margin-bottom: 1.25rem;
+    
+    &-main {
+      gap: 0.5rem;
+      margin: 0;
+      margin-bottom: 1.25rem;
+    }
+    
+    &-col {
+      row-gap: 0.7rem;
+    }
+    
+    @include media-min($breakpoint-xl) {
+      flex-direction: row;
+      align-items: flex-end;
+      column-gap: clamp($padding-1, 4.9vw, 94px);
+      
+      &-main {
+        gap: 0.5rem 1.688rem;
+        margin: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  &__timeline {
+    max-width: 90px;
+    flex-basis: 90px;
+    
+    &--arrival {
+      text-align: right;
+    }
+  }
+  
+  &__route {
+    flex-basis: 100%;
+  }
+  
+  &__footer {
+    padding-top: 1.938rem;
+    background-image: linear-gradient(to right, rgba($blue-black, 0.5) 33%, rgba(255,255,255,0) 0%);
+    background-position: top;
+    background-size: 4px 1px;
+    background-repeat: repeat-x;
+    position: relative;
+    text-align: center;
+    font-size: 0.875rem;
+    
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 1.938rem;
+      height: 1.938rem;
+      top: calc((1.938rem / 2) * -1);
+      border-radius: 10rem 1.938rem;
+      transform: rotate(-45deg);
+      background: $gray;
+      background: #F2F6F9;
+    }
+    
+    &:before {
+      left: calc((#{$padding-1} + 1.938rem / 2) * -1);
+    }
+    
+    &:after {
+      right: calc((#{$padding-1} + 1.938rem / 2) * -1);
+    }
+    
+    .button {
+      width: max-content;
+    }
+  }
+  
+  @include media-min($breakpoint-sm) {
+    @include media-max($breakpoint-xl - 1) {
+      &__body-col {
+        flex-direction: row !important;
+        column-gap: 1rem;
+      }
+    }
+  }
+  
+  @include media-min($breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: $padding-1;
+    
+    &__footer {
+      flex: 0 1 auto;
+      padding-left: clamp($padding-1, 3.1vw, 60px);
+      padding-top: 0;
+      background-image: linear-gradient(to bottom, rgba($blue-black, 0.4) 33%, rgba(255,255,255,0) 0%);
+      background-position: left;
+      background-size: 1px 4px;
+      background-repeat: repeat-y;
+      text-align: left;
+      
+      &:before,
+      &:after {
+        left: calc((1.938rem / 2) * -1);
+        transform: rotate(45deg);
+      }
+      
+      &:before {
+        top: calc((#{$padding-1} + 1.938rem / 2) * -1);
+      }
+      
+      &:after {
+        top: auto;
+        right: auto;
+        bottom: calc((#{$padding-1} + 1.938rem / 2) * -1);
+      }
+      
+      .button {
+        @include media-min($breakpoint-xl) {
+          width: 232px;
+        }
+      }
+    }
+  }
+}
+
+/*Bootstrap overrides*/
+.rounded {
+  &-sm { 
+    border-radius: $rounded-small !important; 
+  }
+  &-md { 
+    border-radius: $rounded-medium !important; 
+  }
+  &-lg { 
+    border-radius: $rounded-large !important; 
+  }
+}
+
+.p-1 { 
+  padding: $padding-1 !important; 
+}
+
+.px-1 {
+  padding-left: $padding-1 !important;
+  padding-right: $padding-1 !important;
+}
+
+.py-1 {
+  padding-top: $padding-1 !important;
+  padding-bottom: $padding-1 !important;
+}
+
+.mb-1 { 
+  margin-bottom: .5rem !important; 
+}
+
+.mb-2 { 
+  margin-bottom: .75rem !important; 
+}
+
+.mb-4 { 
+  margin-bottom: 1.25rem !important; 
+}
+
+.mb-5 { 
+  margin-bottom: 1.5rem !important; 
+}
+
+.m-md-0 {
+  @include media-min($breakpoint-md) {
+    margin-bottom: 0 !important;
+  }
+}
+
+.m-xl-0 {
+  @include media-min($breakpoint-xl) {
+    margin-bottom: 0 !important;
+  }
+}

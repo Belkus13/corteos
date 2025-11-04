@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Поиск авиабилетов</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=5">
+      <script src="./js/vue.min.js"></script>
+      <script src="./js/jquery.slim.min.js"></script>
+      <link rel="stylesheet" href="./css/bootstrap.min.css">
+      <link rel="stylesheet" href="./css/bootstrap-vue.min.css">
+      <script src="./js/bootstrap.bundle.min.js"></script>
+      <script src="./js/bootstrap-vue.min.js"></script>
+      <link rel="stylesheet" href="./css/animate.min.css">
+      <link rel="stylesheet" href="./css/style.min.css">
+   </head>
+   <body>
+      <div class="container" id="app">
+
+         <header class="header d-flex flex-wrap align-items-center mb-5">
+            <div class="header__item">
+               <div class="title icon-fly">Туда</div>
+            </div>
+            <div class="header__item">
+               <div class="segment d-flex flex-nowrap align-items-center">
+                  <div>{{ route.from }}</div>
+                  <div class="icon-arrow"></div>
+                  <div>{{ route.to }}</div>
+               </div>
+            </div>
+            <div class="header__item">
+               <div class="date icon-calendar text-nowrap">
+                  {{ route.date }}
+               </div>
+            </div>
+         </header>
+        
+         <main class="content">
+
+            <div class="panel d-flex flex-wrap">
+               <div class="panel__item panel__item--dropdown">
+                  <div class="collapse-dropdown collapse-dropdown--airline">
+                     <button class="collapse-dropdown__toggle button button--select w-100" @click="toggleAirlinesCollapse">
+                        <span>Авиакомпании</span>
+                        <span class="button button--circle icon-down bg-gray" :class="{ 'rotated': airlinesCollapseOpen }"></span>
+                     </button>
+                     <b-collapse class="collapse-dropdown__in bg-white" v-model="airlinesCollapseOpen">
+                        <div class="collapse-dropdown__item" v-for="airline in airlines" :key="airline.id">
+                           <label class="checkbox"> 
+                              <input class="checkbox__input" type="checkbox" v-model="selectedAirlines" :value="airline.id"> 
+                              <span class="checkbox__decor icon-check"></span> 
+                              <span class="checkbox__text">{{ airline.name }}</span> 
+                           </label>
+                        </div>
+                     </b-collapse>
+                  </div>
+               </div>
+               <div class="panel__item panel__item--checkbox d-flex align-items-center px-1 rounded-sm bg-white">
+                  <label class="checkbox w-100"> 
+                     <input class="checkbox__input" type="checkbox" name="" v-model="onlyDirect"> 
+                     <span class="checkbox__decor icon-check"></span> 
+                     <span class="checkbox__text font-weight-bold">Прямые</span> 
+                  </label> 
+               </div>
+               <div class="panel__item panel__item--button">
+                  <button class="button button--dark justify-content-between icon-filter icon-right w-100 sidebar-toggle" @click="toggleSidebar">Фильтр</button>
+               </div>
+            </div>
+            
+            <transition-group name="order-list" tag="div" class="order-list">
+               <order 
+                  v-for="flight in filteredFlights" 
+                  :key="flight.id"
+                  :flight="flight"
+                  v-animate-css="{
+                     classes: 'zoomIn',
+                     duration: 500,
+                     delay: 50
+                  }"
+               />
+            </transition-group>
+
+         </main>
+
+         <transition enter-active-class="animate__animated animate__fast animate__slideInRight" leave-active-class="animate__animated animate__fast animate__slideOutRight">
+            <aside class="sidebar p-1" v-if="sidebarActive">
+               <div class="sidebar__header d-flex justify-content-between mb-5">
+                  <div class="title title--medium">Фильтр</div>
+                  <button class="button button--circle icon-delete" @click="sidebarActive = false"></button>
+               </div>
+               <div class="sidebar__body">
+                  <div class="filter">
+                     <div class="filter__section">
+                        <label class="checkbox">
+                           <input class="checkbox__input" type="checkbox" v-model="onlyBestPrice">
+                           <span class="checkbox__decor icon-check"></span> 
+                           <span class="checkbox__text">Лучшая цена</span> 
+                        </label>
+                     </div>
+                     <div class="filter__section">
+                        <div class="collapse-dropdown collapse-dropdown--airports">
+                           <button class="collapse-dropdown__toggle button button--narrow button--light icon-plus icon-right w-100 mb-3" @click="toggleAirportsCollapse">Добавить аэропорт</button>
+                           <b-collapse class="collapse-dropdown__in bg-white" v-model="airportsCollapseOpen">
+                              <div class="search">
+                                 <input class="search__input input" type="text" v-model="airportSearch">
+                                 <span class="search__icon icon-search"></span>
+                              </div>
+                              <div class="scrollbar">
+                                 <div class="scrollbar__in">
+                                    <div class="collapse-dropdown__item" v-for="airport in filteredAirports" :key="airport.code">
+                                       <label class="checkbox d-flex justify-content-between">
+                                          <input class="checkbox__input" type="checkbox" :value="airport.code">
+                                          <span class="checkbox__decor icon-check"></span> 
+                                          <span class="checkbox__text d-flex justify-content-between">
+                                             <span class="font-small">{{ airport.name }}</span>
+                                             <span class="font-light">{{ airport.code }}</span>
+                                          </span>
+                                       </label>
+                                    </div>
+                                 </div>
+                              </div>
+                           </b-collapse>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </aside>
+         </transition>
+         
+         <transition enter-active-class="animate__animated animate__fast animate__fadeIn" leave-active-class="animate__animated animate__fast animate__fadeOut">
+            <div class="page-overlay" v-show="sidebarActive" @click="sidebarActive = false"></div>
+         </transition>
+
+      </div>
+
+      <script src="./js/script.min.js"></script>
+
+   </body>
+</html>
